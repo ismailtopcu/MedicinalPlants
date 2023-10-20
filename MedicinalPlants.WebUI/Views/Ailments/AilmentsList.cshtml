@@ -1,0 +1,64 @@
+﻿@model List<ResultAilmentDto>
+@{
+    ViewData["Title"] = "AilmentsList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int count = 0;
+}
+
+<div class="card-body">
+    <table class="table table-bordered">
+        <tr>
+            <th>#</th>
+            <th>Şikayet Adı</th>
+            <th>Sil</th>
+            <th>Güncelle</th>
+        </tr>
+        @if (Model.Count>0)
+        {
+            @foreach (var item in Model)
+            {
+                count++;
+                <tr>
+                    <td>@count</td>
+                    <td>@item.AilmentName</td>
+                    <td><a class="btn btn-warning deleteButton" data-id="@item.AilmentId">Sil</a></td>
+                    <td><a class="btn btn-primary" href="/Ailments/UpdateAilment/@item.AilmentId">Güncelle</a></td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4">Veri Bulunamadı</td>
+            </tr>
+        }
+        
+    </table>
+    <a href="/Ailments/CreateAilment" class="btn btn-success">Yeni Bitki Girişi</a>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $(".deleteButton").click(function () {
+            var id = $(this).data("id");
+            var row = $(this).closest('tr');
+            if (confirm("Bu şikayeti silmek istediğinize emin misiniz?")) {
+                $.ajax({
+                    url: "https://localhost:7240/api/ailments?id=" + id,
+                    type: "DELETE",
+                    success: function () {
+
+                        row.remove();
+                    },
+                    error: function () {
+                        alert("Silme işlemi sırasında bir hata oluştu.");
+                    }
+                });
+            }
+        });
+    });
+
+
+</script>
+

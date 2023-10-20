@@ -1,0 +1,14 @@
+﻿@model CreateAilmentDto
+@{
+    ViewData["Title"] = "CreateAilment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="card-body">
+    <h4>Şikayet Ekleme</h4>
+    <form method="post">
+        <label class="col-lg-4 col-form-label">Şikayet Adı</label>
+        <input type="text" class="col-lg-4 form-control" asp-for="AilmentName" />
+        <br />
+        <button class="btn btn-success">Şikayet Ekle</button>
+    </form>
+</div>

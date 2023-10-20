@@ -1,0 +1,75 @@
+﻿@model List<ListPlantDto>
+@{
+	ViewData["Title"] = "PlantsList";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+	int count = 0;
+}
+
+<div class="card-body">
+	<table class="table table-bordered">
+		<tr>
+			<th>#</th>
+			<th>Resim</th>
+			<th>Bitki Adı</th>
+			<th>Açıklama</th>
+			<th>Hangi Şikayetlere İyi Gelir?</th>
+			<th>Sil</th>
+			<th>Güncelle</th>
+		</tr>
+		@if (Model.Count > 0)
+		{
+			@foreach (var item in Model)
+			{
+				count++;
+				<tr>
+					<td>@count</td>
+					<td> <img src="@item.PlantImage" alt="@item.PlantName" width="100" height="100"></td>
+					<td>@item.PlantName</td>
+					<td>@item.Description</td>
+					<td>
+						@foreach (var x in item.Ailments)
+						{
+							<label>&#9679; @x</label>
+
+							<br />
+						}
+					</td>
+					<td><a class="btn btn-warning deleteButton" data-id="@item.PlantId">Sil</a></td>
+					<td><a class="btn btn-primary" href="/Plants/UpdatePlant/@item.PlantId">Güncelle</a></td>
+				</tr>
+			}
+		}
+		else
+		{
+			<tr>
+				<td colspan="7">Veri Bulunamadı</td>
+			</tr>
+		}
+	</table>
+	<a href="/Plants/CreatePlant" class="btn btn-success">Yeni Bitki Girişi</a>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+	$(document).ready(function () {
+		$(".deleteButton").click(function () {
+			var id = $(this).data("id");
+			var row = $(this).closest('tr');
+			if (confirm("Bu bitkiyi silmek istediğinize emin misiniz?")) {
+				$.ajax({
+					url: "https://localhost:7240/api/plants?id=" + id,
+					type: "DELETE",
+					success: function () {
+
+						row.remove();
+					},
+					error: function () {
+						alert("Silme işlemi sırasında bir hata oluştu.");
+					}
+				});
+			}
+		});
+	});
+
+</script>
+

@@ -1,0 +1,52 @@
+﻿@model UpdatePlantDto
+@{
+	ViewData["Title"] = "UpdatePlant";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card-body">
+	<h4>Bitki Güncelle</h4>
+	<form method="post" enctype="multipart/form-data">
+		<input type="hidden" asp-for="PlantId" />
+		<div class="form-group">
+			<label asp-for="PlantName" class="col-lg-4 col-form-label">Bitki Adı</label>
+			<input asp-for="PlantName" class="col-lg-4 form-control" />
+		</div>
+		<div class="form-group">
+			<label  class="col-lg-4 col-form-label">Bitki Image Url</label>
+			<input  name="plantFile" class="col-lg-4 form-control"  type="file"/>
+			<input type="hidden" asp-for="PlantImage"/>
+		</div>
+		<div class="form-group">
+			<label class="col-lg-4 col-form-label">Şikayetler</label>
+			<select id="selectedAilments" asp-for="AilmentIds" class="col-lg-4 form-control" multiple>
+				@foreach (var item in (List<ResultAilmentDto>)ViewBag.Ailments)
+				{
+					if (Model.AilmentIds.Any(x => x == item.AilmentId))
+					{
+						<option value="@item.AilmentId" selected>
+							@item.AilmentName
+						</option>
+					}
+					else
+					{
+						<option value="@item.AilmentId">
+							@item.AilmentName
+						</option>
+					}
+
+				}
+			</select>
+		</div>
+		<div class="form-group">
+			<label asp-for="Description" class="col-lg-4 col-form-label">Açıklama</label>
+			<textarea asp-for="Description" class="col-lg-4 form-control" rows="4" cols="50"></textarea>
+		</div>
+		<div class="form-group">
+			<button class="btn btn-success">Bitki Güncelle</button>
+		</div>
+	</form>
+</div>
+
+
+

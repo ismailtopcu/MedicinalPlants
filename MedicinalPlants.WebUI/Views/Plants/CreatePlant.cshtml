@@ -1,0 +1,45 @@
+﻿@model CreatePlantDto
+@{
+    ViewData["Title"] = "CreatePlant";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card-body">
+    <h4>Bitki Ekleme</h4>
+    <form method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label asp-for="PlantName" class="col-lg-4 col-form-label">Bitki Adı</label>
+            <input asp-for="PlantName" class="col-lg-4 form-control" />
+        </div>
+        <div class="form-group">
+            <label class="col-lg-4 col-form-label">Bitki Image Url</label>
+            <input name="plantImage" class="col-lg-4 form-control" type="file"/>
+        </div>
+        <div class="form-group">
+            <label class="col-lg-4 col-form-label">Şikayetler</label>
+            <select id="selectedAilments" asp-for="AilmentIds" class="col-lg-4 form-control" multiple></select>
+        </div>
+        <div class="form-group">
+            <label asp-for="Description" class="col-lg-4 col-form-label">Açıklama</label>
+            <textarea asp-for="Description" class="col-lg-4 form-control" rows="4" cols="50"></textarea>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-success">Bitki Ekle</button>
+        </div>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        
+        $.get("https://localhost:7240/api/ailments", function (data) {
+            
+            var ailmentsSelect = $("#selectedAilments");
+            ailmentsSelect.empty();
+            $.each(data, function (index, ailment) {
+                ailmentsSelect.append($("<option></option>").attr("value", ailment.ailmentId).text(ailment.ailmentName));
+            });
+        });
+    });
+</script>

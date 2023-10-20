@@ -1,0 +1,17 @@
+﻿@model UpdateAilmentDto
+@{
+    ViewData["Title"] = "UpdateAilment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card-body">
+    <h4>Şikayet Güncelleme</h4>
+    <form method="post">
+        <input type="hidden" asp-for="AilmentId"/>
+        <label class="col-lg-4 col-form-label">Şikayet Adı</label>
+        <input type="text" class="col-lg-4 form-control" asp-for="AilmentName" />
+        <br />
+        <button class="btn btn-success">Şikayet Güncelle</button>
+    </form>
+</div>
+
