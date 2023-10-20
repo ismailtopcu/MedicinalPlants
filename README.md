@@ -1,5 +1,5 @@
 # MedicinalPlants
-Medicinal Plants projesi N katmanlı mimaride, repository design pattern ile hazırlanmıştır. Projemde .Net 6.0 sürümünü kullanarak, Api Consume işlemlerini yaptım.
+Medicinal Plants projesi N katmanlı mimaride, repository design pattern ile hazırlanmıştır. Projemde .Net 6.0 sürümünü kullanarak, Api Consume işlemlerini yaptım. Db yedeği WebUI katmanı içerisinde yer almaktadır.
 # Technologies
 - .Net 6.0
 - MVC
